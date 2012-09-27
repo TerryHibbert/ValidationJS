@@ -344,13 +344,6 @@ var Validation = function() {
 	}());
 	
 	var trim = function (input) {
-		input = input.replace(/^\s+/, '');
-		for (var i = input.length - 1; i >= 0; i--) {
-			if (/\S/.test(input.charAt(i))) {
-				input = input.substring(0, i + 1);
-				break;
-			}
-		}
-		return input;
+		return input.replace(/^\s\s*/, '').replace(/\s\s*$/, '');;
 	}
 }
