@@ -1,0 +1,66 @@
+<html>
+<head>
+	<title>Test page</title>
+	<script type="text/javascript" src="validation_v1.0.js"></script>
+</head>
+<body>
+	<h1>Validation JS Test page</h1>
+	
+	<form name="test" action="#">
+		<fieldset>
+			<legend>Personal:</legend>
+			<label>name</label><br/>
+			<input id="name" type="text" /><br/>
+			<span id="validation_name"></span><br/>
+			<label>email</label><br/>
+			<input id="email" type="text" /><br/>
+			<span id="validation_email"></span><br/>
+			<label>message</label><br/>
+			<textarea id="message" /></textarea><br/>
+			<span id="validation_message"></span><br/>
+			<button type="submit" value="Submit" onclick="validation.validate(true);">Submit</button>
+		</fieldset>
+	</form>
+
+	<script type="text/javascript">
+		var validation = new Validation();
+
+		validation.add(
+			document.getElementById("name"),	//target
+			validation.types.MATCH,	//type
+			[/^[a-z]{3,8}$/],	//args
+			"3 to 8 lowercase letters please",	//message
+			document.getElementById("validation_name"),	//feedback_element
+			false	//allow_empty
+		);
+
+		validation.add(
+			document.getElementById("email"),	//target
+			validation.types.EMAIL,	//type
+			[],	//args
+			"A valid email address please",	//message
+			document.getElementById("validation_email"),	//feedback_element
+			false	//allow_empty
+		);
+
+		validation.add(
+			document.getElementById("message"),	//target
+			validation.types.WORDS_MAX,	//type
+			[3],	//args
+			"No more than 3 words please",	//message
+			document.getElementById("validation_message"),	//feedback_element
+			false	//allow_empty
+		);
+
+		validation.add(
+			document.getElementById("message"),	//target
+			validation.types.WORDS_MIN,	//type
+			[3],	//args
+			"No less than 3 words please",	//message
+			document.getElementById("validation_message"),	//feedback_element
+			false	//allow_empty
+		);
+
+	</script>
+</body>
+</html>
