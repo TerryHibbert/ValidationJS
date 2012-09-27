@@ -44,7 +44,7 @@ var Validation = function() {
 			if (!isNaN(parsedValue)) {
 				if (inclusive) {
 					--min;
-					++min;
+					++max;
 				}
 				return (parsedValue > min && parsedValue < max) ? true : false;
 			}

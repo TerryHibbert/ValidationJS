@@ -1,35 +1,57 @@
 <html>
 <head>
 	<title>Test page</title>
+
+	<style type="text/css">
+		body {
+			font-family: Verdana;
+		}
+
+		form .validation-message {
+			color: #880000;
+		}
+	</style>
+
 	<script type="text/javascript" src="validation_v1.0.js"></script>
 </head>
 <body>
 	<h1>Validation JS Test page</h1>
-	
+
 	<form name="test" action="#">
 		<fieldset>
 			<legend>Personal:</legend>
-			<label>name</label><br/>
+
+			<label>Name</label><br/>
 			<input id="name" type="text" /><br/>
-			<span id="validation_name"></span><br/>
-			<label>email</label><br/>
+			<span class="validation-message" id="validation_name"></span><br/>
+
+			<label>Email</label><br/>
 			<input id="email" type="text" /><br/>
-			<span id="validation_email"></span><br/>
-			<label>message</label><br/>
+			<span class="validation-message" id="validation_email"></span><br/>
+
+			<label>Age</label><br/>
+			<input id="age" type="number" /><br/>
+			<span class="validation-message" id="validation_age"></span><br/>
+
+			<label>Message</label><br/>
 			<textarea id="message" /></textarea><br/>
-			<span id="validation_message"></span><br/>
+			<span class="validation-message" id="validation_message"></span><br/>
+
 			<button type="submit" value="Submit" onclick="validation.validate(true);">Submit</button>
+
+			<div class="validation-message" id="validation_summary"></div>
 		</fieldset>
 	</form>
 
 	<script type="text/javascript">
 		var validation = new Validation();
+		validation.summary_element = document.getElementById("validation_summary");
 
 		validation.add(
 			document.getElementById("name"),	//target
 			validation.types.MATCH,	//type
 			[/^[a-z]{3,8}$/],	//args
-			"3 to 8 lowercase letters please",	//message
+			"Name must be 3 to 8 lowercase letters",	//message
 			document.getElementById("validation_name"),	//feedback_element
 			false	//allow_empty
 		);
@@ -38,8 +60,17 @@
 			document.getElementById("email"),	//target
 			validation.types.EMAIL,	//type
 			[],	//args
-			"A valid email address please",	//message
+			"Email address must be valid",	//message
 			document.getElementById("validation_email"),	//feedback_element
+			false	//allow_empty
+		);
+
+		validation.add(
+			document.getElementById("age"),	//target
+			validation.types.NUMBER_BETWEEN,	//type
+			[18,80,true],	//args
+			"Age must be between 18 and 80",	//message
+			document.getElementById("validation_age"),	//feedback_element
 			false	//allow_empty
 		);
 
@@ -47,7 +78,7 @@
 			document.getElementById("message"),	//target
 			validation.types.WORDS_MAX,	//type
 			[3],	//args
-			"No more than 3 words please",	//message
+			"Message must be no more than 3 words long",	//message
 			document.getElementById("validation_message"),	//feedback_element
 			false	//allow_empty
 		);
@@ -56,7 +87,7 @@
 			document.getElementById("message"),	//target
 			validation.types.WORDS_MIN,	//type
 			[3],	//args
-			"No less than 3 words please",	//message
+			"Message must be no less than 3 words long",	//message
 			document.getElementById("validation_message"),	//feedback_element
 			false	//allow_empty
 		);
