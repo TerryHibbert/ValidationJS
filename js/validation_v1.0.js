@@ -3,6 +3,7 @@
  */
 
 
+// FIX OLDER IE CONSOLE ABSENCE
 if (typeof console == "undefined") { var console = {log:function(){}} }
 
 var Validation = function() {
